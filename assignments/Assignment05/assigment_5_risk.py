@@ -58,7 +58,7 @@ rounds_played = 0 # Number of Rounds Counter
 # The competition continues until one of the establishments reaches 10 wins
 while total_wins_a < 10 and total_wins_b < 10:
     rounds_played += 1
-    wins_a, wins_b = simulate_round() # function simulation round
+    wins_a, wins_b = simulate_round() # Function simulation round
     total_wins_a += wins_a
     total_wins_b += wins_b
 
@@ -73,3 +73,14 @@ else:
 
 print(f"\nWinner: {winner} after {rounds_played} rounds!")
 
+# Plotting graph
+labels = ['Hot Potato Haven', 'Potato Empire']
+total_wins = [total_wins_a, total_wins_b]
+
+# Graph of results
+plt.figure(figsize=(8, 5))
+plt.bar(labels, total_wins, color=['orange', 'green'])
+plt.title('Results of the Fried Potato Competition')
+plt.xlabel('Institutions')
+plt.ylabel('Total number of wins')
+plt.show()
