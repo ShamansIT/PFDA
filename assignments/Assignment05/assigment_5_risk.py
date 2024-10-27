@@ -11,10 +11,43 @@ I hope this will not be counted as a mistake or incorrect completion of the task
 import random
 import matplotlib.pyplot as plt 
 
-# Function to get a random quality score for each institution
-def simulate_round():
-    pass
 
+# Function to get a random quality score for each institution
+def get_quality_score(num_scores):
+    # Create an empty list to save grades
+    scores = []
+    
+    # Generate num_scores ratings from 1 to 6
+    for _ in range(num_scores):
+        score = random.randint(1, 6)  # Random number from 1 to 6
+        scores.append(score)  # Add score to the list
+    
+    # Sorting the scores in descending order
+    scores_sorted = sorted(scores, reverse=True)
+
+    # Return sorted list of grades
+    return scores_sorted  
+
+
+# Feature simulates single round of competition between two establishments
+def simulate_round():
+    # "Hot Potato Haven" receives 3 marks for quality
+    quality_a = get_quality_score(3)
+    # "Potato Empire" also receives 3 marks for quality
+    quality_b = get_quality_score(3)
+    
+    # Initial wins per round for each establishment
+    wins_a = 0
+    wins_b = 0
+    
+    # Сompare the results of assessments for each place
+    for i in range(3):  # Each institution has 3 ratings
+        if quality_a[i] > quality_b[i]:
+            wins_a += 1  # "Hot Potato Haven" wins one point
+        elif quality_a[i] < quality_b[i]:
+            wins_b += 1  # "Potato Empire" wins one point
+    
+    return wins_a, wins_b
 
 
 # Define vatiables
@@ -39,3 +72,4 @@ else:
     winner = "Potato Empire"
 
 print(f"\nWinner: {winner} after {rounds_played} rounds!")
+
