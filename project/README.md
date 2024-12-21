@@ -85,3 +85,7 @@ PUlocationID              | TLC Taxi Zone in which the trip began.
 
 For more detailed information, refer to the [NYC Taxi Trip Records For-Hire Vehicle (FHV) Data Dictionary PDF.](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_fhv.pdf)
 
+### Convector Taxi data
+The files from format **.parquet** have been converted by **parquet_to_csv_convector.py** into **.csv** files for more convenient use and data processing. 
+To convert four files that could not be converted due to an error in the conversion stage due to the presence of data corruption, separate **parquet_to_csv_convector_error_protection.py** convector was written, which reads the data line by line into the data frame (DF) exceptions detected errors in the records. Once this operation is complete, the file is saved to **.csv** format with name **output.csv**. The total processing time of one file varies within 35-45 minutes, depending on the hardware capabilities. The list of files converted this way: fhv_tripdata_2017-06, fhv_tripdata_2018-05, fhv_tripdata_2018-06, fhv_tripdata_2018-08.
+
