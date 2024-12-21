@@ -85,7 +85,21 @@ PUlocationID              | TLC Taxi Zone in which the trip began.
 
 For more detailed information, refer to the [NYC Taxi Trip Records For-Hire Vehicle (FHV) Data Dictionary PDF.](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_fhv.pdf)
 
-### Convector Taxi data
-The files from format **.parquet** have been converted by **parquet_to_csv_convector.py** into **.csv** files for more convenient use and data processing. 
-To convert four files that could not be converted due to an error in the conversion stage due to the presence of data corruption, separate **parquet_to_csv_convector_error_protection.py** convector was written, which reads the data line by line into the data frame (DF) exceptions detected errors in the records. Once this operation is complete, the file is saved to **.csv** format with name **output.csv**. The total processing time of one file varies within 35-45 minutes, depending on the hardware capabilities. The list of files converted this way: fhv_tripdata_2017-06, fhv_tripdata_2018-05, fhv_tripdata_2018-06, fhv_tripdata_2018-08.
+### Convector Problem
+During the initial attempts to convert Parquet files to CSV format, numerous errors occurred due to invalid or incomplete data. The most common issues included:
+- Invalid timestamps, such as those exceeding allowed ranges or having incorrect formats.
+- Unexpected data structures causing processing failures.
+
+To ensure successful conversion and minimize data loss, a new converter script with enhanced error handling was developed.
+
+### Solution
+The new script **`parquet_to_csv_convector_error_protection.py`** addresses these issues by:
+- Cleaning problematic timestamps using the `clean_timestamps` function, which converts invalid dates to a valid format or marks them as `NaT` (Not a Time).
+- Processing all columns in a Parquet file and saving the data as a DataFrame for CSV conversion.
+
+### Key Functionalities
+- **Timestamp Cleaning:** Automatically handles invalid values in columns with the "timestamp" type.
+- **Flexible Conversion:** Supports all data types, including text, numeric, and timestamp columns.
+- **Data Preservation:** Saves cleaned data into `output.csv` without losing structure or validity.
+
 
